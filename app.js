@@ -5,7 +5,13 @@ const app = express();
 
 const port = 3000;
 
+app.set('view engine', 'hbs');
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) =>{
+    res.render('home')
+})
 
 app.get('/elements', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'elements.html'))
