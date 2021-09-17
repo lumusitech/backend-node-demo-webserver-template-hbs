@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const hbs = require('hbs');
 
 const app = express();
 
@@ -7,9 +8,11 @@ const port = 3000;
 
 app.set('view engine', 'hbs');
 
+hbs.registerPartials(path.join(__dirname, '/views/partials'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) =>{
+app.get('/', (req, res) => {
     res.render('home', {
         name: 'Luciano Figueroa',
         title: 'Portfolio - lumusitech'
@@ -17,15 +20,21 @@ app.get('/', (req, res) =>{
 })
 
 app.get('/elements', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'elements.html'))
+    res.render('elements', {
+        name: 'Luciano Figueroa',
+        title: 'Portfolio - lumusitech'
+    })
 })
 
 app.get('/generic', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'generic.html'))
+    res.render('generic', {
+        name: 'Luciano Figueroa',
+        title: 'Portfolio - lumusitech'
+    })
 })
 
-app.get('*', (req, res) =>{
-    res.sendFile(path.join(__dirname, 'public/404.html'));
+app.get('*', (req, res) => {
+    res.render('404');
 });
 
 app.listen(port, () => {
